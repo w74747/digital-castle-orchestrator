@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "project_name": "digital-castle-orchestrator",
+  "stack_type": "serverless_fastapi",
+  "runtime": {
+    "port": 8000,
+    "start_command": "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"
+  },
+  "network": {
+    "api_prefix": "/api"
+  },
+  "immutable_constraints": [
+    "Single source of truth runtime command stored in railway.toml only",
+    "All backend endpoints strictly prefixed with /api/",
+    "Pure HTML5 / Tailwind Dark Theme UI communicating via Fetch API"
+  ],
+  "living_adrs": [
+    {
+      "adr_id": "ADR-001",
+      "title": "Strict GitOps IaC Standard",
+      "context": "Prevent configuration drift",
+      "decision": "# ADR-001: Strict Railway Configuration as Single Source of Truth\n\n## Status\nAccepted\n\n## Context  \nThe Digital Castle S.P.C autonomous venture requires absolute consistency between development and production stack configurations. Decentralized infrastructure definitions create drift.\n\n## Decision\nAdopt `railway.toml` as the canonical, immutable deployment contract.\n\n1. The Railway domain remains authoritative for all infrastructure state\n2. Version control only for intentional, approved changes\n3. All local/dev/test environments will reference the specific Railway production environment configuration\n4. No alternate definitions permitted without architectural review\n\n## Consequences\n**Benefits:**\n- Single source of truth decreases provisioning errors\n- Streamlined versioning, tracking and auditing\n- Lower cognitive load for engineers\n\n**Costs:**\n- Lack of version control over shared environment development requires disciplined configuration management\n- Changes to infrastructure now require release management pathway which slows improvisation\n\n## Governance  \nAll railway.toml changes must follow:\n1. Feature branch with full specs\n2. Submit PR with detailed reasoning\n3. Merge upon architect approval\n4. Verify via `/health` integration test\n\n---\n### ADR-002: Zero-Placeholder Productionization Mandate\n**Status:** Active\n**Scope:** All code in this repository\n**Rule:** Files must evidence runnable code, never mocks or unimplemented stubs.\n**Enforcement:** CI checks and reviewer gates will scan for placeholder markers (`TODO`, `FIXME`, `pass`, `...`) configured to fail the build.",
+      "consequences": "Zero manual dashboard overrides"
+    }
+  ]
+}
