@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Together AI Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --castle-ink: #071033;
+            --castle-canvas: #0B1020;
+            --castle-frost: #2A3650;
+            --castle-cyan: #08F9F2;
+            --castle-blue: #0025FF;
+            --castle-text: #F1F5F9;
+            --castle-muted: #8A94A8;
+            --castle-border: #1E2A44;
+            --castle-glass: rgba(255, 255, 255, 0.05);
+        }
+        body {
+            background-color: var(--castle-canvas);
+            color: var(--castle-text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .header {
+            background-color: var(--castle-ink);
+            padding: 1rem;
+            text-align: center;
+        }
+        .footer {
+            background-color: var(--castle-ink);
+            padding: 1rem;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .main-content {
+            padding: 2rem;
+        }
+        .card {
+            background-color: var(--castle-frost);
+            padding: 1rem;
+            border: 1px solid var(--castle-border);
+            border-radius: 8px;
+        }
+        .card-header {
+            background-color: var(--castle-ink);
+            padding: 1rem;
+            border-bottom: 1px solid var(--castle-border);
+        }
+        .agent-status {
+            padding: 1rem;
+            border: 1px solid var(--castle-border);
+            border-radius: 4px;
+        }
+        .agent-status.idle {
+            background-color: var(--castle-frost);
+        }
+        .agent-status.busy {
+            background-color: var(--castle-blue);
+        }
+        .agent-status.error {
+            background-color: var(--castle-cyan);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Together AI Dashboard</h1>
+    </header>
+    <main class="main-content">
+        <section class="card">
+            <div class="card-header">
+                <h2>Agent Overview</h2>
+            </div>
+            <div class="card-body">
+                <div class="agent-status idle">
+                    <p>Agent 1: Idle</p>
+                </div>
+                <div class="agent-status busy">
+                    <p>Agent 2: Busy</p>
+                </div>
+                <div class="agent-status error">
+                    <p>Agent 3: Error</p>
+                </div>
+            </div>
+        </section>
+        <section class="card">
+            <div class="card-header">
+                <h2>Task Queue</h2>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Task 1: Queued</li>
+                    <li>Task 2: Pending</li>
+                    <li>Task 3: Processing</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>Digital Castle S.P.C · C.R. 1197389 · VAT OM-VAT-PENDING · Muscat, Sultanate of Oman | DigitalCastle.io · +968 9969 6333</p>
+    </footer>
+    <script>
+        // Fetch API data
+        async function getAgentStatus() {
+            const response = await fetch('/api/agents');
+            const data = await response.json();
+            console.log(data);
+        }
+        getAgentStatus();
+    </script>
+</body>
+</html>
